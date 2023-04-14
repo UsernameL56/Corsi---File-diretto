@@ -50,10 +50,14 @@ namespace Corsi___File_diretto
             listView1.Clear();
             while (f.Position < f.Length)
             {
+                
                 br = reader.ReadBytes(recordLength);
                 line = Encoding.ASCII.GetString(br, 0, br.Length);
+                String[] split = line.Split(';');
+                if (split[2] == "true")
                 listView1.Items.Add(line);
-                
+
+
             }
             f.Close();
         }
@@ -69,7 +73,22 @@ namespace Corsi___File_diretto
             reader.BaseStream.Write(br, 0, br.Length);
             f.Close();
         }
+        private void ripristino_Click(object sender, EventArgs e)
+        {
+            string sep = ";";
+            cercaSuFile(file, textBox1.Text, ref linea);
+            var f = new FileStream(file, FileMode.Open, FileAccess.ReadWrite);
+            BinaryReader reader = new BinaryReader(f);
+            f.Seek(recordLength * linea, SeekOrigin.Begin);
+            line = Encoding.ASCII.GetString(br, 0, br.Length);
+            br = Encoding.ASCII.GetBytes((P[linea].nome + sep + P[linea].prezzo + sep + "true" + sep).PadRight(60) + "##");
+            reader.BaseStream.Write(br, 0, br.Length);
+            f.Close();
+        }
+        private void definitivo_Click(object sender, EventArgs e)
+        {
 
+        }
         private void svuota_Click(object sender, EventArgs e)
         {
             File.Delete(file);
@@ -117,5 +136,7 @@ namespace Corsi___File_diretto
         {
             
         }
+
+
     }
 }

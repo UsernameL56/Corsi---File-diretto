@@ -37,6 +37,8 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
+            this.ripristino = new System.Windows.Forms.Button();
+            this.definitivo = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // salva
@@ -81,7 +83,7 @@
             // 
             // modifica
             // 
-            this.modifica.Location = new System.Drawing.Point(160, 284);
+            this.modifica.Location = new System.Drawing.Point(51, 335);
             this.modifica.Name = "modifica";
             this.modifica.Size = new System.Drawing.Size(75, 23);
             this.modifica.TabIndex = 4;
@@ -119,11 +121,33 @@
             this.textBox3.Size = new System.Drawing.Size(100, 22);
             this.textBox3.TabIndex = 8;
             // 
+            // ripristino
+            // 
+            this.ripristino.Location = new System.Drawing.Point(160, 283);
+            this.ripristino.Name = "ripristino";
+            this.ripristino.Size = new System.Drawing.Size(75, 23);
+            this.ripristino.TabIndex = 9;
+            this.ripristino.Text = "Ripristina";
+            this.ripristino.UseVisualStyleBackColor = true;
+            this.ripristino.Click += new System.EventHandler(this.ripristino_Click);
+            // 
+            // definitivo
+            // 
+            this.definitivo.Location = new System.Drawing.Point(265, 284);
+            this.definitivo.Name = "definitivo";
+            this.definitivo.Size = new System.Drawing.Size(84, 23);
+            this.definitivo.TabIndex = 10;
+            this.definitivo.Text = "Ricompatta";
+            this.definitivo.UseVisualStyleBackColor = true;
+            this.definitivo.Click += new System.EventHandler(this.definitivo_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.definitivo);
+            this.Controls.Add(this.ripristino);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
@@ -152,6 +176,8 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.Button ripristino;
+        private System.Windows.Forms.Button definitivo;
     }
 }
 
