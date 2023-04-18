@@ -89,6 +89,7 @@
             this.modifica.TabIndex = 4;
             this.modifica.Text = "Modifica";
             this.modifica.UseVisualStyleBackColor = true;
+            this.modifica.Click += new System.EventHandler(this.modifica_Click);
             // 
             // listView1
             // 
@@ -159,7 +160,6 @@
             this.Controls.Add(this.salva);
             this.Name = "Form1";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace Corsi___File_diretto
 {
@@ -18,21 +19,25 @@ namespace Corsi___File_diretto
             public string nome;
             public float prezzo;
         }
-        string file;
-        string line;
+        string file, fileApp, line;
         byte[] br;
         int recordLength;
         public prodotto[] P;
         int indice;
         int linea;
+        StreamReader reader;
+        StreamWriter writer;
         public Form1()
         {
             InitializeComponent();
             file = @"File.csv";
+            fileApp = @"appoggio.csv";
             recordLength = 64;
             indice = 0;
             linea = 0;
             P = new prodotto[100];
+            reader = null;
+            writer = null;
         }
 
         private void salva_Click(object sender, EventArgs e)
@@ -84,17 +89,31 @@ namespace Corsi___File_diretto
             br = Encoding.ASCII.GetBytes((P[linea].nome + sep + P[linea].prezzo + sep + "true" + sep).PadRight(60) + "##");
             reader.BaseStream.Write(br, 0, br.Length);
             f.Close();
+            listView1.Clear();
         }
         private void definitivo_Click(object sender, EventArgs e)
         {
-
+            Ricompatta();
+            Sosituzione();
+        }
+        private void modifica_Click(object sender, EventArgs e)
+        {
+            string sep = ";";
+            cercaSuFile(file, textBox1.Text, ref linea);
+            var f = new FileStream(file, FileMode.Open, FileAccess.ReadWrite);
+            BinaryReader reader = new BinaryReader(f);
+            f.Seek(recordLength * linea, SeekOrigin.Begin);
+            line = Encoding.ASCII.GetString(br, 0, br.Length);
+            br = Encoding.ASCII.GetBytes((textBox3.Text + sep + P[linea].prezzo + sep + "true" + sep).PadRight(60) + "##");
+            reader.BaseStream.Write(br, 0, br.Length);
+            f.Close();
+            listView1.Clear();
         }
         private void svuota_Click(object sender, EventArgs e)
         {
             File.Delete(file);
             listView1.Clear();
         }
-
 
         public static string ToString(prodotto[] P, int indice)
         {
@@ -131,12 +150,32 @@ namespace Corsi___File_diretto
 
             return linea;
         }
-
+        public void Ricompatta()
+        {
+            string line;
+            writer = new StreamWriter(fileApp, append: true);
+            reader = File.OpenText(file);
+            while ((line = reader.ReadLine()) != null)
+            {
+                String[] split = line.Split(';');
+                if (split[2] != "false")
+                {
+                    writer.WriteLine(line);
+                }
+            }
+            reader.Close();
+            writer.Close();
+            listView1.Clear();
+        }
+        public void Sosituzione()
+        {
+            File.Delete(file);
+            File.Move(fileApp, file);
+            listView1.Clear();
+        }
         private void Form1_Load(object sender, EventArgs e)
         {
             
         }
-
-
     }
 }
